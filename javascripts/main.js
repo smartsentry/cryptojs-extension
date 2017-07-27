@@ -29,9 +29,17 @@
             key = CryptoJS.enc.Hex.parse(key);
         }
         
-        var result = CryptoJS.CMAC(key, msg);
+        var lines = $('#cmac-msg').val().split('\n');
+        var result = "";
+        for(var i = 0;i < lines.length; i++){
+            msg = lines[i];
+            //code here using lines[i] which will give you each line
+            result += lines[i]+',';
+            result += CryptoJS.CMAC(key, msg);
+            result += '\n';
+        }
         
-        $("#cmac-result").val(insertSpaces(result.toString()));
+        $("#cmac-result").val(result);
     });
     
     $("#siv-enc, #siv-dec").click(function(){
